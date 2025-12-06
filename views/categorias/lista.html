@@ -1,0 +1,57 @@
+<div ng-controller="CategoriasListaController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Categorías</h4>
+         <p class="page-subtitle">Administración de categorías de productos.</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 right-align spacer-bottom">
+         <a class="btn waves-effect waves-light blue" ng-click="irNueva()">
+            <i class="material-icons left">add</i>
+            Nueva categoría
+         </a>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="c in categorias">
+                  <td>{{c.nombre}}</td>
+                  <td>{{c.descripcion}}</td>
+                  <td>
+                     <span class="new badge" data-badge-caption="" ng-class="{'green': c.activo, 'red': !c.activo}">
+                        {{c.activo ? 'Activa' : 'Inactiva'}}
+                     </span>
+                  </td>
+                  <td>
+                     <a class="btn-small waves-effect waves-light" ng-click="editar(c)">
+                        <i class="material-icons">edit</i>
+                     </a>
+                     <a class="btn-small waves-effect waves-light grey darken-1" style="margin-left: 4px;" ng-click="cambiarEstado(c)">
+                        <i class="material-icons">power_settings_new</i>
+                     </a>
+                  </td>
+               </tr>
+               <tr ng-if="!categorias.length && !cargando">
+                  <td colspan="4" class="center-align grey-text">No hay categorías registradas.</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+</div>
+

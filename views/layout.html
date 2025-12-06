@@ -1,0 +1,98 @@
+<!--
+ Layout principal de la aplicación AlPa SmartFlow POS.
+ Contiene:
+  - Navbar superior con logo, nombre de usuario y menú de perfil.
+  - Sidebar lateral con navegación a las secciones principales.
+  - Área central para cargar la vista específica (ng-include).
+-->
+
+<div class="layout">
+
+   <!-- Navbar superior -->
+   <nav class="blue darken-3">
+      <div class="nav-wrapper">
+         <a href="#/dashboard" class="brand-logo" style="padding-left: 20px;">
+            <i class="material-icons left">point_of_sale</i>
+            AlPa SmartFlow POS
+         </a>
+         <a href="#" data-target="sidenav-main" class="sidenav-trigger show-on-large">
+            <i class="material-icons">menu</i>
+         </a>
+
+         <ul class="right hide-on-med-and-down">
+            <li ng-if="layoutVm.usuarioActual">
+               <a class="dropdown-trigger" href="#!" data-target="dropdown-usuario">
+                  <i class="material-icons left">account_circle</i>
+                  {{layoutVm.usuarioActual.nombre || 'Usuario'}}
+                  <i class="material-icons right">arrow_drop_down</i>
+               </a>
+            </li>
+         </ul>
+      </div>
+   </nav>
+
+   <!-- Dropdown de usuario -->
+   <ul id="dropdown-usuario" class="dropdown-content">
+      <li><a href="#!" ng-click="layoutVm.irA('/perfil')">Perfil</a></li>
+      <li class="divider"></li>
+      <li><a href="#!" ng-click="layoutVm.cerrarSesion()">Cerrar sesión</a></li>
+   </ul>
+
+   <!-- Sidebar de navegación -->
+   <ul id="sidenav-main" class="sidenav sidenav-fixed">
+      <li>
+         <div class="user-view blue darken-3 white-text">
+            <div class="background blue darken-4"></div>
+            <a href="#/perfil"><i class="material-icons circle">account_circle</i></a>
+            <a href="#/perfil"><span class="white-text name">{{layoutVm.usuarioActual.nombre || 'Usuario'}}</span></a>
+            <a href="#/perfil"><span class="white-text email">{{layoutVm.usuarioActual.rol || 'Rol'}}</span></a>
+         </div>
+      </li>
+
+      <li><a href="#/dashboard" ng-class="{'active': $location.path() === '/dashboard'}"><i class="material-icons">dashboard</i>Dashboard</a></li>
+
+      <li><div class="divider"></div></li>
+
+      <li><a class="subheader">Ventas</a></li>
+      <li><a href="#/ventas/caja"><i class="material-icons">point_of_sale</i>Caja</a></li>
+      <li><a href="#/ventas/historial"><i class="material-icons">history</i>Historial</a></li>
+
+      <li><div class="divider"></div></li>
+
+      <li><a class="subheader">Catálogo</a></li>
+      <li><a href="#/productos"><i class="material-icons">inventory_2</i>Productos</a></li>
+      <li><a href="#/categorias"><i class="material-icons">category</i>Categorías</a></li>
+      <li><a href="#/clientes"><i class="material-icons">people</i>Clientes</a></li>
+
+      <li><div class="divider"></div></li>
+
+      <li><a class="subheader">Reportes</a></li>
+      <li><a href="#/reportes/ventas-fechas"><i class="material-icons">event</i>Ventas por fechas</a></li>
+      <li><a href="#/reportes/ventas-producto"><i class="material-icons">bar_chart</i>Ventas por producto</a></li>
+      <li><a href="#/reportes/inventario-bajo"><i class="material-icons">warning</i>Inventario bajo</a></li>
+
+      <li><div class="divider"></div></li>
+
+      <li><a class="subheader">Inventario</a></li>
+      <li><a href="#/inventario/movimientos"><i class="material-icons">swap_vert</i>Movimientos</a></li>
+      <li><a href="#/inventario/ajustes"><i class="material-icons">tune</i>Ajustes</a></li>
+
+      <li><div class="divider"></div></li>
+
+      <li><a class="subheader">Configuración</a></li>
+      <li><a href="#/config"><i class="material-icons">settings</i>General</a></li>
+
+      <li ng-if="layoutVm.esAdmin()"><div class="divider"></div></li>
+      <li ng-if="layoutVm.esAdmin()"><a class="subheader">Administración</a></li>
+      <li ng-if="layoutVm.esAdmin()"><a href="#/usuarios"><i class="material-icons">supervisor_account</i>Usuarios</a></li>
+   </ul>
+
+   <!-- Contenido principal -->
+   <main style="margin-left: 300px;" class="contenido-principal">
+      <div class="container" style="padding-top: 20px;">
+         <div ng-include="layoutVm.vistaContenido"></div>
+      </div>
+   </main>
+
+</div>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="alpaPosApp">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>AlPa SmartFlow POS</title>
+
+   <!-- Fuentes e íconos -->
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+   <!-- Materialize CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+   <!-- Estilos personalizados -->
+   <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+
+<body class="grey lighten-4">
+
+   <!-- Contenedor principal de vistas -->
+   <div ng-view></div>
+
+   <!-- Librerías base -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.min.js"></script>
+
+   <!-- Materialize JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+   <!-- Módulo principal y configuración -->
+   <script src="app.js"></script>
+   <script src="app.routes.js"></script>
+
+   <!-- Interceptores -->
+   <script src="interceptors/auth.interceptor.js"></script>
+
+   <!-- Servicios -->
+   <script src="services/auth.service.js"></script>
+   <script src="services/usuarios.service.js"></script>
+   <script src="services/categorias.service.js"></script>
+   <script src="services/productos.service.js"></script>
+   <script src="services/notificaciones.service.js"></script>
+   <script src="services/clientes.service.js"></script>
+   <script src="services/ventas.service.js"></script>
+   <script src="services/reportes.service.js"></script>
+   <script src="services/inventario.service.js"></script>
+   <script src="services/config.service.js"></script>
+   <script src="services/facturacion.service.js"></script>
+
+   <!-- Controladores -->
+   <script src="controllers/layout.controller.js"></script>
+   <script src="controllers/login.controller.js"></script>
+   <script src="controllers/dashboard.controller.js"></script>
+   <script src="controllers/usuarios.controller.js"></script>
+   <script src="controllers/categorias.controller.js"></script>
+   <script src="controllers/productos.controller.js"></script>
+   <script src="controllers/clientes.controller.js"></script>
+   <script src="controllers/ventas.controller.js"></script>
+   <script src="controllers/ventasLista.controller.js"></script>
+   <script src="controllers/ventaDetalle.controller.js"></script>
+   <script src="controllers/reportes.controller.js"></script>
+   <script src="controllers/reportesVentasFechas.controller.js"></script>
+   <script src="controllers/reportesVentasProducto.controller.js"></script>
+   <script src="controllers/reportesInventarioBajo.controller.js"></script>
+   <script src="controllers/inventario.controller.js"></script>
+   <script src="controllers/config.controller.js"></script>
+   <script src="controllers/facturacion.controller.js"></script>
+   <script src="controllers/perfil.controller.js"></script>
+
+</body>
+
+</html>

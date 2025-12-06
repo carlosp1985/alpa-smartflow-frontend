@@ -1,0 +1,87 @@
+<div ng-controller="VentasListaController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Historial de ventas</h4>
+         <p class="page-subtitle">Consulta las ventas realizadas en el sistema.</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 m3">
+         <div class="input-field">
+            <input id="fecha_inicio" type="date" ng-model="filtros.fecha_inicio">
+            <label class="active" for="fecha_inicio">Fecha inicio</label>
+         </div>
+      </div>
+      <div class="col s12 m3">
+         <div class="input-field">
+            <input id="fecha_fin" type="date" ng-model="filtros.fecha_fin">
+            <label class="active" for="fecha_fin">Fecha fin</label>
+         </div>
+      </div>
+      <div class="col s12 m3">
+         <div class="input-field">
+            <select class="browser-default" ng-model="filtros.estado">
+               <option value="">Todos los estados</option>
+               <option value="COMPLETADA">Completadas</option>
+               <option value="ANULADA">Anuladas</option>
+            </select>
+            <label class="active" style="margin-top:-20px;">Estado</label>
+         </div>
+      </div>
+      <div class="col s12 m3 right-align" style="margin-top: 25px;">
+         <a class="btn waves-effect waves-light blue" ng-click="buscar()">
+            <i class="material-icons left">search</i>
+            Buscar
+         </a>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Fecha</th>
+                  <th>Cliente</th>
+                  <th>Usuario</th>
+                  <th class="right-align">Total</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="v in ventas">
+                  <td>{{v.fecha | date:'yyyy-MM-dd HH:mm'}}</td>
+                  <td>{{(v.cliente && v.cliente.nombre) || 'Consumidor final'}}</td>
+                  <td>{{v.usuario && (v.usuario.nombre + ' ' + (v.usuario.apellido || ''))}}</td>
+                  <td class="right-align">{{v.total_neto | currency:'$':0}}</td>
+                  <td>
+                     <span class="new badge" data-badge-caption="" ng-class="{'green': v.estado === 'COMPLETADA', 'red': v.estado === 'ANULADA'}">
+                        {{v.estado}}
+                     </span>
+                  </td>
+                  <td>
+                     <a class="btn-small waves-effect waves-light" ng-click="verDetalle(v)">
+                        <i class="material-icons">visibility</i>
+                     </a>
+                     <a
+                        class="btn-small waves-effect waves-light red lighten-1"
+                        style="margin-left: 4px;"
+                        ng-if="v.estado === 'COMPLETADA'"
+                        ng-click="anularVenta(v)">
+                        <i class="material-icons">cancel</i>
+                     </a>
+                  </td>
+               </tr>
+               <tr ng-if="!ventas.length && !cargando">
+                  <td colspan="6" class="center-align grey-text">No hay ventas que coincidan con los filtros.</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+</div>
+

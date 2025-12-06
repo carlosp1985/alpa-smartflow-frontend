@@ -1,0 +1,60 @@
+<div ng-controller="ClientesListaController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Clientes</h4>
+         <p class="page-subtitle">Administración de clientes del sistema.</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 m6">
+         <div class="input-field">
+            <input id="buscarCliente" type="text" ng-model="filtro" ng-change="buscar()">
+            <label for="buscarCliente">Buscar por nombre o documento</label>
+         </div>
+      </div>
+      <div class="col s12 m6 right-align spacer-top">
+         <a class="btn waves-effect waves-light blue" ng-click="irNuevo()">
+            <i class="material-icons left">person_add</i>
+            Nuevo cliente
+         </a>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Documento</th>
+                  <th>Nombre</th>
+                  <th>Teléfono</th>
+                  <th>Email</th>
+                  <th>Dirección</th>
+                  <th>Acciones</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="c in clientes">
+                  <td>{{c.tipo_documento}} {{c.numero_documento}}</td>
+                  <td>{{c.nombre}}</td>
+                  <td>{{c.telefono}}</td>
+                  <td>{{c.email}}</td>
+                  <td>{{c.direccion}}</td>
+                  <td>
+                     <a class="btn-small waves-effect waves-light" ng-click="editar(c)">
+                        <i class="material-icons">edit</i>
+                     </a>
+                  </td>
+               </tr>
+               <tr ng-if="!clientes.length && !cargando">
+                  <td colspan="6" class="center-align grey-text">No hay clientes que coincidan con la búsqueda.</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+</div>
+

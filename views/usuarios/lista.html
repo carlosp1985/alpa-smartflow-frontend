@@ -1,0 +1,61 @@
+<div ng-controller="UsuariosListaController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Usuarios</h4>
+         <p class="page-subtitle">Gestión de usuarios del sistema.</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 right-align spacer-bottom">
+         <a class="btn waves-effect waves-light blue" ng-click="irANuevo()">
+            <i class="material-icons left">person_add</i>
+            Nuevo usuario
+         </a>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Nombre</th>
+                  <th>Usuario</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="u in usuarios">
+                  <td>{{u.nombre}} {{u.apellido}}</td>
+                  <td>{{u.username}}</td>
+                  <td>{{u.email}}</td>
+                  <td>{{u.rol}}</td>
+                  <td>
+                     <span class="new badge" data-badge-caption="" ng-class="{'green': u.activo, 'red': !u.activo}">
+                        {{u.activo ? 'Activo' : 'Inactivo'}}
+                     </span>
+                  </td>
+                  <td>
+                     <a class="btn-small waves-effect waves-light" ng-click="editarUsuario(u)">
+                        <i class="material-icons">edit</i>
+                     </a>
+                     <a class="btn-small waves-effect waves-light grey darken-1" style="margin-left: 4px;" ng-click="cambiarEstado(u)">
+                        <i class="material-icons">power_settings_new</i>
+                     </a>
+                  </td>
+               </tr>
+               <tr ng-if="!usuarios.length && !cargando">
+                  <td colspan="6" class="center-align grey-text">No hay usuarios registrados.</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+</div>
+

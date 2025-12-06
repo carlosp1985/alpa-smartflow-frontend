@@ -1,0 +1,127 @@
+<div ng-controller="VentasCajaController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Caja</h4>
+         <p class="page-subtitle">Registra ventas rápidas desde el punto de venta.</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 m6">
+         <div class="input-field">
+            <input id="busquedaProducto" type="text" ng-model="busquedaProducto" ng-change="buscarProductos()">
+            <label for="busquedaProducto">Buscar producto por código o nombre</label>
+            <span class="grey-text text-darken-1 right">Escribe al menos 2 caracteres para ver coincidencias.</span>
+         </div>
+
+         <ul class="collection" ng-if="productosBusqueda.length" style="max-height: 260px; overflow-y: auto;">
+            <li class="collection-item hoverable" ng-repeat="p in productosBusqueda" ng-click="agregarProductoPorBusqueda(p)" style="cursor: pointer; padding: 10px 16px;">
+               <span style="display:block; font-size: 1.1rem; font-weight: 500;">{{p.nombre}}</span>
+               <span class="grey-text" style="display:block; margin-top: 2px;">
+                  Código: {{p.codigo}}<span ng-if="p.precio_venta"> · Precio: {{p.precio_venta | currency:'$':0}}</span>
+               </span>
+            </li>
+         </ul>
+      </div>
+      <div class="col s12 m3" style="margin-top: 25px;">
+         <a class="btn waves-effect waves-light blue" ng-click="agregarProductoPorBusqueda()">
+            <i class="material-icons left">add_shopping_cart</i>
+            Agregar producto
+         </a>
+      </div>
+      <div class="col s12 m3">
+         <div class="input-field">
+            <select class="browser-default" ng-model="cliente_id">
+               <option value="">Cliente genérico</option>
+               <option ng-repeat="c in clientes" value="{{c.id}}">{{c.nombre}}</option>
+            </select>
+            <label class="active" style="margin-top:-20px;">Cliente</label>
+         </div>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Producto</th>
+                  <th class="right-align">Precio</th>
+                  <th class="center-align">Cantidad</th>
+                  <th class="right-align">Subtotal</th>
+                  <th></th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="item in items">
+                  <td>{{item.producto.nombre}}</td>
+                  <td class="right-align">{{item.producto.precio_venta | currency:'$':0}}</td>
+                  <td class="center-align" style="width: 120px;">
+                     <input type="number" min="1" ng-model="item.cantidad" ng-change="cambiarCantidad(item)" style="width: 80px; display: inline-block;">
+                  </td>
+                  <td class="right-align">{{item.total_linea | currency:'$':0}}</td>
+                  <td class="center-align">
+                     <a class="btn-small red lighten-1" ng-click="eliminarItem($index)">
+                        <i class="material-icons">delete</i>
+                     </a>
+                  </td>
+               </tr>
+               <tr ng-if="!items.length">
+                  <td colspan="5" class="center-align grey-text">No hay productos agregados a la venta.</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 m6">
+         <div class="input-field">
+            <select class="browser-default" ng-model="medio_pago">
+               <option value="EFECTIVO">Efectivo</option>
+               <option value="TARJETA">Tarjeta</option>
+               <option value="TRANSFERENCIA">Transferencia</option>
+            </select>
+            <label class="active" style="margin-top:-20px;">Medio de pago</label>
+         </div>
+
+         <div class="input-field">
+            <textarea id="nota" class="materialize-textarea" ng-model="nota"></textarea>
+            <label for="nota">Nota (opcional)</label>
+         </div>
+      </div>
+
+      <div class="col s12 m6">
+         <ul class="collection with-header">
+            <li class="collection-header"><h5>Resumen</h5></li>
+            <li class="collection-item">
+               <span>Total bruto</span>
+               <span class="secondary-content">{{total_bruto | currency:'$':0}}</span>
+            </li>
+            <li class="collection-item">
+               <span>Descuentos</span>
+               <span class="secondary-content">{{total_descuentos | currency:'$':0}}</span>
+            </li>
+            <li class="collection-item">
+               <span>Impuestos</span>
+               <span class="secondary-content">{{total_impuestos | currency:'$':0}}</span>
+            </li>
+            <li class="collection-item">
+               <span><strong>Total a pagar</strong></span>
+               <span class="secondary-content"><strong>{{total_neto | currency:'$':0}}</strong></span>
+            </li>
+         </ul>
+
+         <div class="right-align" style="margin-top: 10px;">
+            <a class="btn-flat" ng-click="items = []; nota = ''; medio_pago = 'EFECTIVO'; total_bruto = total_descuentos = total_impuestos = total_neto = 0;">Cancelar</a>
+            <a class="btn waves-effect waves-light green" ng-click="cobrar()">
+               Cobrar
+               <i class="material-icons right">check</i>
+            </a>
+         </div>
+      </div>
+   </div>
+
+</div>
+

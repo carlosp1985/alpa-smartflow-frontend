@@ -1,0 +1,61 @@
+<div ng-controller="DashboardController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Bienvenido, {{usuarioActual.nombre || 'Usuario'}}</h4>
+         <p class="page-subtitle">Resumen general de la operación del día.</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <!-- Ventas de hoy -->
+      <div class="col s12 m4">
+         <div class="card blue lighten-1 white-text">
+            <div class="card-content">
+               <span class="card-title">
+                  <i class="material-icons left">attach_money</i>
+                  Ventas de hoy
+               </span>
+               <h4 style="margin-top: 16px;">
+                  {{resumen.totalVentasHoy | currency:'$':0}}
+               </h4>
+               <p>Total facturado en el día.</p>
+            </div>
+         </div>
+      </div>
+
+      <!-- Transacciones de hoy -->
+      <div class="col s12 m4">
+         <div class="card teal lighten-1 white-text">
+            <div class="card-content">
+               <span class="card-title">
+                  <i class="material-icons left">receipt</i>
+                  Transacciones de hoy
+               </span>
+               <h4 style="margin-top: 16px;">
+                  {{resumen.cantidadTransaccionesHoy}}
+               </h4>
+               <p>Número de ventas registradas hoy.</p>
+            </div>
+         </div>
+      </div>
+
+      <!-- Productos con inventario bajo -->
+      <div class="col s12 m4">
+         <div class="card orange lighten-1 white-text">
+            <div class="card-content">
+               <span class="card-title">
+                  <i class="material-icons left">warning</i>
+                  Inventario bajo
+               </span>
+               <h4 style="margin-top: 16px;">
+                  {{resumen.productosInventarioBajo}}
+               </h4>
+               <p>Productos que requieren reposición.</p>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</div>
+

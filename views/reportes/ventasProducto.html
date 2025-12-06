@@ -1,0 +1,60 @@
+<div ng-controller="ReportesVentasProductoController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Reporte de ventas por producto</h4>
+         <p class="page-subtitle">Consulta el total vendido por producto en un rango de fechas.</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 m3">
+         <div class="input-field">
+            <input id="fecha_inicio" type="date" ng-model="filtros.fecha_inicio">
+            <label class="active" for="fecha_inicio">Fecha inicio</label>
+         </div>
+      </div>
+      <div class="col s12 m3">
+         <div class="input-field">
+            <input id="fecha_fin" type="date" ng-model="filtros.fecha_fin">
+            <label class="active" for="fecha_fin">Fecha fin</label>
+         </div>
+      </div>
+      <div class="col s12 m3" style="margin-top: 25px;">
+         <a class="btn waves-effect waves-light blue" ng-click="buscar()">
+            Buscar
+         </a>
+      </div>
+   </div>
+
+   <div class="row" ng-if="cargando">
+      <div class="col s12">
+         <p>Cargando datos...</p>
+      </div>
+   </div>
+
+   <div class="row" ng-if="!cargando">
+      <div class="col s12">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Producto</th>
+                  <th class="center-align">Cantidad total vendida</th>
+                  <th class="right-align">Total de ventas</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="p in productos">
+                  <td>{{p.nombre}}</td>
+                  <td class="center-align">{{p.cantidad_total_vendida}}</td>
+                  <td class="right-align">{{p.total_ventas | currency:'$':0}}</td>
+               </tr>
+               <tr ng-if="!productos.length">
+                  <td colspan="3" class="center-align grey-text">No se encontraron ventas para el rango seleccionado.</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+</div>

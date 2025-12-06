@@ -1,0 +1,44 @@
+<div ng-controller="ReportesInventarioBajoController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Productos con inventario bajo</h4>
+         <p class="page-subtitle">Listado de productos cuyo stock actual es menor o igual al stock mínimo.</p>
+      </div>
+   </div>
+
+   <div class="row" ng-if="cargando">
+      <div class="col s12">
+         <p>Cargando datos...</p>
+      </div>
+   </div>
+
+   <div class="row" ng-if="!cargando">
+      <div class="col s12">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Código</th>
+                  <th>Nombre</th>
+                  <th>Categoría</th>
+                  <th class="right-align">Stock actual</th>
+                  <th class="right-align">Stock mínimo</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="p in productos">
+                  <td>{{p.codigo}}</td>
+                  <td>{{p.nombre}}</td>
+                  <td>{{p.categoria || '-'}}</td>
+                  <td class="right-align">{{p.stock_actual}}</td>
+                  <td class="right-align">{{p.stock_minimo}}</td>
+               </tr>
+               <tr ng-if="!productos.length">
+                  <td colspan="5" class="center-align grey-text">No hay productos con inventario bajo.</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+</div>

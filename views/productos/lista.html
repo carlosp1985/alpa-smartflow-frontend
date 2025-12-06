@@ -1,0 +1,78 @@
+<div ng-controller="ProductosListaController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Productos</h4>
+         <p class="page-subtitle">Catálogo de productos disponibles para la venta.</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 m4">
+         <div class="input-field">
+            <input id="buscar" type="text" ng-model="filtros.buscar" ng-change="buscar()">
+            <label for="buscar">Buscar por nombre o código</label>
+         </div>
+      </div>
+      <div class="col s12 m4">
+         <div class="input-field">
+            <select class="browser-default" ng-model="filtros.categoria_id" ng-change="buscar()">
+               <option value="">Todas las categorías</option>
+               <option ng-repeat="c in categorias" value="{{c.id}}">{{c.nombre}}</option>
+            </select>
+            <label class="active" style="margin-top:-20px;">Categoría</label>
+         </div>
+      </div>
+      <div class="col s12 m4 right-align spacer-top">
+         <a class="btn waves-effect waves-light blue" ng-click="irNuevo()">
+            <i class="material-icons left">add_shopping_cart</i>
+            Nuevo producto
+         </a>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Código</th>
+                  <th>Nombre</th>
+                  <th>Categoría</th>
+                  <th>Precio venta</th>
+                  <th>Stock actual</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="p in productos">
+                  <td>{{p.codigo}}</td>
+                  <td>{{p.nombre}}</td>
+                  <td>{{ (categorias | filter:{id: p.categoria_id})[0].nombre || '-' }}</td>
+                  <td>{{p.precio_venta | currency:'$':0}}</td>
+                  <td>{{p.stock_actual}}</td>
+                  <td>
+                     <span class="new badge" data-badge-caption="" ng-class="{'green': p.activo, 'red': !p.activo}">
+                        {{p.activo ? 'Activo' : 'Inactivo'}}
+                     </span>
+                  </td>
+                  <td>
+                     <a class="btn-small waves-effect waves-light" ng-click="editar(p)">
+                        <i class="material-icons">edit</i>
+                     </a>
+                     <a class="btn-small waves-effect waves-light grey darken-1" style="margin-left: 4px;" ng-click="cambiarEstado(p)">
+                        <i class="material-icons">power_settings_new</i>
+                     </a>
+                  </td>
+               </tr>
+               <tr ng-if="!productos.length && !cargando">
+                  <td colspan="7" class="center-align grey-text">No hay productos que coincidan con la búsqueda.</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+</div>
+

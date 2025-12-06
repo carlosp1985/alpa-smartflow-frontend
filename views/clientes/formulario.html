@@ -1,0 +1,62 @@
+<div ng-controller="ClienteFormController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">{{titulo}}</h4>
+         <p class="page-subtitle">Completa los datos del cliente.</p>
+      </div>
+   </div>
+
+   <form name="formCliente" novalidate ng-submit="guardar()">
+      <div class="row">
+         <div class="input-field col s12 m4">
+            <select class="browser-default" ng-model="cliente.tipo_documento" required>
+               <option value="CC">CC</option>
+               <option value="NIT">NIT</option>
+               <option value="CE">CE</option>
+               <option value="OTRO">OTRO</option>
+            </select>
+            <label class="active" style="margin-top:-20px;">Tipo de documento</label>
+         </div>
+         <div class="input-field col s12 m8">
+            <input id="numero_documento" type="text" ng-model="cliente.numero_documento" required>
+            <label for="numero_documento">Número de documento</label>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="input-field col s12 m6">
+            <input id="nombre" type="text" ng-model="cliente.nombre" required>
+            <label for="nombre">Nombre</label>
+         </div>
+         <div class="input-field col s12 m6">
+            <input id="telefono" type="text" ng-model="cliente.telefono">
+            <label for="telefono">Teléfono</label>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="input-field col s12 m6">
+            <input id="email" type="email" ng-model="cliente.email">
+            <label for="email">Email</label>
+         </div>
+         <div class="input-field col s12 m6">
+            <input id="direccion" type="text" ng-model="cliente.direccion">
+            <label for="direccion">Dirección</label>
+         </div>
+      </div>
+
+      <div class="row spacer-top">
+         <div class="col s12 right-align">
+            <a class="btn-flat" ng-click="cancelar()">Cancelar</a>
+            <button type="submit" class="btn waves-effect waves-light blue" ng-disabled="formCliente.$invalid">
+               Guardar
+               <i class="material-icons right">save</i>
+            </button>
+         </div>
+      </div>
+
+   </form>
+
+</div>
+

@@ -1,0 +1,93 @@
+<div ng-controller="VentaDetalleController">
+
+   <div class="row" ng-if="venta">
+      <div class="col s12">
+         <h4 class="page-title">Detalle de venta #{{venta.id}}</h4>
+         <p class="page-subtitle">Fecha: {{venta.fecha | date:'yyyy-MM-dd HH:mm'}}</p>
+      </div>
+   </div>
+
+   <div class="row" ng-if="venta">
+      <div class="col s12 m4">
+         <ul class="collection with-header">
+            <li class="collection-header"><h5>Información general</h5></li>
+            <li class="collection-item">
+               <span>Cliente</span>
+               <span class="secondary-content">{{(venta.cliente && venta.cliente.nombre) || 'Consumidor final'}}</span>
+            </li>
+            <li class="collection-item">
+               <span>Usuario</span>
+               <span class="secondary-content">{{venta.usuario && (venta.usuario.nombre + ' ' + (venta.usuario.apellido || ''))}}</span>
+            </li>
+            <li class="collection-item">
+               <span>Medio de pago</span>
+               <span class="secondary-content">{{venta.medio_pago}}</span>
+            </li>
+            <li class="collection-item">
+               <span>Estado</span>
+               <span class="secondary-content">{{venta.estado}}</span>
+            </li>
+         </ul>
+      </div>
+
+      <div class="col s12 m8">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Producto</th>
+                  <th class="center-align">Cantidad</th>
+                  <th class="right-align">Precio</th>
+                  <th class="right-align">IVA</th>
+                  <th class="right-align">Total línea</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="d in venta.detalles">
+                  <td>{{d.producto && d.producto.nombre}}</td>
+                  <td class="center-align">{{d.cantidad}}</td>
+                  <td class="right-align">{{d.precio_unitario | currency:'$':0}}</td>
+                  <td class="right-align">{{d.iva_monto | currency:'$':0}}</td>
+                  <td class="right-align">{{d.total_linea | currency:'$':0}}</td>
+               </tr>
+            </tbody>
+         </table>
+
+         <ul class="collection" style="margin-top: 20px;">
+            <li class="collection-item">
+               <span>Total bruto</span>
+               <span class="secondary-content">{{venta.total_bruto | currency:'$':0}}</span>
+            </li>
+            <li class="collection-item">
+               <span>Descuentos</span>
+               <span class="secondary-content">{{venta.total_descuentos | currency:'$':0}}</span>
+            </li>
+            <li class="collection-item">
+               <span>Impuestos</span>
+               <span class="secondary-content">{{venta.total_impuestos | currency:'$':0}}</span>
+            </li>
+            <li class="collection-item">
+               <span><strong>Total neto</strong></span>
+               <span class="secondary-content"><strong>{{venta.total_neto | currency:'$':0}}</strong></span>
+            </li>
+         </ul>
+      </div>
+   </div>
+
+   <div class="row" ng-if="!venta && !cargando">
+      <div class="col s12 center-align grey-text">
+         No se encontró la venta solicitada.
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 right-align" style="margin-top: 20px;">
+         <a class="btn-flat" ng-click="volver()">Volver al historial</a>
+         <a class="btn waves-effect waves-light blue" ng-if="venta && venta.estado === 'COMPLETADA'" href="#/facturacion/{{venta.id}}" style="margin-left: 8px;">
+            Factura electrónica
+            <i class="material-icons right">receipt_long</i>
+         </a>
+      </div>
+   </div>
+
+</div>
+

@@ -1,0 +1,89 @@
+<div ng-controller="InventarioMovimientosController">
+
+   <div class="row">
+      <div class="col s12">
+         <h4 class="page-title">Movimientos de inventario</h4>
+         <p class="page-subtitle">Consulta los movimientos de inventario con filtros opcionales.</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 m4">
+         <div class="input-field">
+            <select class="browser-default" ng-model="filtros.producto_id">
+               <option value="">Todos los productos</option>
+               <option ng-repeat="p in productos" value="{{p.id}}">{{p.nombre}}</option>
+            </select>
+            <label class="active" style="margin-top:-20px;">Producto</label>
+         </div>
+      </div>
+      <div class="col s12 m3">
+         <div class="input-field">
+            <select class="browser-default" ng-model="filtros.tipo_movimiento">
+               <option value="">Todos los tipos</option>
+               <option value="ENTRADA">Entrada</option>
+               <option value="SALIDA">Salida</option>
+               <option value="AJUSTE_POSITIVO">Ajuste positivo</option>
+               <option value="AJUSTE_NEGATIVO">Ajuste negativo</option>
+            </select>
+            <label class="active" style="margin-top:-20px;">Tipo de movimiento</label>
+         </div>
+      </div>
+      <div class="col s12 m2">
+         <div class="input-field">
+            <input id="fecha_inicio" type="date" ng-model="filtros.fecha_inicio">
+            <label class="active" for="fecha_inicio">Fecha inicio</label>
+         </div>
+      </div>
+      <div class="col s12 m2">
+         <div class="input-field">
+            <input id="fecha_fin" type="date" ng-model="filtros.fecha_fin">
+            <label class="active" for="fecha_fin">Fecha fin</label>
+         </div>
+      </div>
+      <div class="col s12 m1" style="margin-top: 25px;">
+         <a class="btn waves-effect waves-light blue" ng-click="buscar()">Buscar</a>
+      </div>
+   </div>
+
+   <div class="row" ng-if="cargando">
+      <div class="col s12">
+         <p>Cargando movimientos...</p>
+      </div>
+   </div>
+
+   <div class="row" ng-if="!cargando">
+      <div class="col s12">
+         <table class="highlight responsive-table">
+            <thead>
+               <tr>
+                  <th>Fecha</th>
+                  <th>Producto</th>
+                  <th class="center-align">Tipo</th>
+                  <th class="right-align">Cantidad</th>
+                  <th class="right-align">Stock anterior</th>
+                  <th class="right-align">Stock nuevo</th>
+                  <th>Usuario</th>
+                  <th>Referencia</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="m in movimientos">
+                  <td>{{m.fecha | date:'yyyy-MM-dd HH:mm'}}</td>
+                  <td>{{m.producto_nombre || ('#' + m.producto_id)}}</td>
+                  <td class="center-align">{{m.tipo_movimiento}}</td>
+                  <td class="right-align">{{m.cantidad}}</td>
+                  <td class="right-align">{{m.stock_anterior}}</td>
+                  <td class="right-align">{{m.stock_nuevo}}</td>
+                  <td>{{m.usuario_nombre || ('#' + m.usuario_id)}}</td>
+                  <td>{{m.referencia_tipo || '-'}}</td>
+               </tr>
+               <tr ng-if="!movimientos.length">
+                  <td colspan="8" class="center-align grey-text">No se encontraron movimientos con los filtros seleccionados.</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+</div>
