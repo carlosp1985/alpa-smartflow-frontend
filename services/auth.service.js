@@ -42,7 +42,7 @@
             password: password
          };
 
-         return $http.post(API_URL + '/auth/login', payload)
+         return $http.post(API_URL + 'auth/login', payload)
             .then(function (response) {
                // El backend devuelve:
                // {
