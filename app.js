@@ -11,7 +11,7 @@
          'ngRoute'
       ])
       // Constante con la URL base del API REST
-      .constant('API_URL', 'https://alpa-smartflow-backend-production.up.railway.app/api/')
+      .constant('API_URL', 'https://alpa-smartflow-backend-production.up.railway.app/api//')
       // Configuración del interceptor de autenticación
       .config(['$httpProvider', function ($httpProvider) {
          $httpProvider.interceptors.push('AuthInterceptor');
